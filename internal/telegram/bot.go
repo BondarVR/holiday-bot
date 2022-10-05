@@ -28,7 +28,7 @@ func (b *Bot) Start() error {
 	return nil
 }
 
-// Processing updates
+// handleUpdates processing updates
 func (b *Bot) handleUpdates(updates tgbotapi.UpdatesChannel) error {
 	for update := range updates {
 		if update.Message == nil {
@@ -47,7 +47,7 @@ func (b *Bot) handleUpdates(updates tgbotapi.UpdatesChannel) error {
 	return nil
 }
 
-// Getting updates
+// initUpdatesChannel getting updates
 func (b *Bot) initUpdatesChannel() tgbotapi.UpdatesChannel {
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60

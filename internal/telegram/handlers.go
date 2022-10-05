@@ -49,55 +49,48 @@ func (b *Bot) handleStartCommand(message *tgbotapi.Message) error {
 func (b *Bot) handleMessage(message *tgbotapi.Message) error {
 	switch message.Text {
 	case textUkraine:
-		msg, err := b.getHolidayInfo("ua", message)
-		if err != nil {
-			return err
-		}
-		if _, err := b.bot.Send(msg); err != nil {
+		country := "ua"
+		if err := b.handleSendMessage(country, message); err != nil {
 			return err
 		}
 	case textEngland:
-		msg, err := b.getHolidayInfo("gb", message)
-		if err != nil {
-			return err
-		}
-		if _, err := b.bot.Send(msg); err != nil {
+		country := "gb"
+		if err := b.handleSendMessage(country, message); err != nil {
 			return err
 		}
 	case textFrance:
-		msg, err := b.getHolidayInfo("fr", message)
-		if err != nil {
-			return err
-		}
-		if _, err := b.bot.Send(msg); err != nil {
+		country := "fr"
+		if err := b.handleSendMessage(country, message); err != nil {
 			return err
 		}
 	case textPoland:
-		msg, err := b.getHolidayInfo("pl", message)
-		if err != nil {
-			return err
-		}
-		if _, err := b.bot.Send(msg); err != nil {
+		country := "pl"
+		if err := b.handleSendMessage(country, message); err != nil {
 			return err
 		}
 	case textUSA:
-		msg, err := b.getHolidayInfo("us", message)
-		if err != nil {
-			return err
-		}
-		if _, err := b.bot.Send(msg); err != nil {
+		country := "us"
+		if err := b.handleSendMessage(country, message); err != nil {
 			return err
 		}
 	case textGerman:
-		msg, err := b.getHolidayInfo("de", message)
-		if err != nil {
-			return err
-		}
-		if _, err := b.bot.Send(msg); err != nil {
+		country := "de"
+		if err := b.handleSendMessage(country, message); err != nil {
 			return err
 		}
 	default:
 		return errors.New("Invalid type of text.")
+	}
+	return nil
+}
+
+func (b *Bot) handleSendMessage(country string, message *tgbotapi.Message) error {
+	msg, err := b.getHolidayInfo(country, message)
+	if err != nil {
+		return err
+	}
+	if _, err := b.bot.Send(msg); err != nil {
+		return err
 	}
 	return nil
 }
